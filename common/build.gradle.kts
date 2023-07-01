@@ -1,16 +1,11 @@
-val coroutinesVersion = "1.7.1"
-val ktorVersion = "2.3.1"
-val sqlDelightVersion = "2.0.0-alpha05"
-val dateTimeVersion = "0.4.0"
-
 plugins {
     kotlin("multiplatform")
-    // kotlin("plugin.serialization") version "1.8.20"
     kotlin("native.cocoapods")
 
-    id("org.jetbrains.compose")
-    id("com.android.library")
-    id("app.cash.sqldelight")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.mokoResources)
 }
 
 group = "com.artkorchagin.scrubler"
@@ -18,12 +13,12 @@ version = "1.0-SNAPSHOT"
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-     targetHierarchy.default()
+    targetHierarchy.default()
 
     android {
         compilations.all {
             kotlinOptions {
-                // jvmTarget = "1.8"
+                // TODO: jvmTarget = "1.8"
                 jvmTarget = "17"
             }
         }
@@ -38,11 +33,9 @@ kotlin {
     ios()
 
     cocoapods {
-        // pod("SQlite")
         summary = "Some description for the Common Module"
         homepage = "Link to the Shared Common homepage"
         version = "1.0"
-        // ios.deploymentTarget = "14.1"
         ios.deploymentTarget = "16.4"
         podfile = project.file("../ios/Podfile")
         framework {
@@ -50,8 +43,7 @@ kotlin {
             isStatic = true
             linkerOpts("-lsqlite3")
         }
-        // extraOp
-        // extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     sourceSets {
@@ -63,66 +55,45 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
 
-                // api(compose.runtime)
-                // api(compose.foundation)
-                // @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                // api(compose.material3)
-                // @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                // api(compose.components.resources)
+                api(compose.material3)
+                api(compose.materialIconsExtended)
+                api(compose.ui)
 
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
+                api(libs.moko.resources)
+                api(libs.moko.resources.compose)
+
+                implementation(libs.kamel)
+                implementation(libs.kotlin.coroutinesCore)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.contentNegotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.kotlin.datetime)
             }
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.2.0")
-                api("androidx.core:core-ktx:1.3.1")
-
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
-                implementation("app.cash.sqldelight:android-driver:$sqlDelightVersion")
-                // implementation("app.cash.sqldelight:android-driver:2.0.0-alpha05")
+                api(libs.androidx.appcompat)
+                api(libs.androidx.coreKtx)
+                implementation(compose.uiTooling)
+                implementation(libs.ktor.client.android)
+                implementation(libs.sqldelight.androidDriver)
             }
         }
-        // val iosMain by getting {
-        //     dependencies {
-        //         implementation("io.ktor:ktor-client-darwin:$ktorVersion")
-        //         implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
-        //     }
-        // }
-
-        // val iosX64Main by getting
-        // val iosArm64Main by getting
-        // val iosSimulatorArm64Main by getting
-
-
-        // def sdkName = System.getenv("SDK_NAME")
-        // if (sdkName != null && sdkName.startsWith("iphoneos")) {
-        //     iosArm64("ios")
-        // } else {
-        // iosX64("ios")
-        // iosSimulatorArm64("ios")
-        // }
-
 
         val iosMain by getting {
-            // dependsOn(commonMain)
-            // iosX64Main.dependsOn(this)
-            // iosArm64Main.dependsOn(this)
-            // iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
-                implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
+                implementation(libs.ktor.client.darwin)
+                implementation(libs.sqldelight.nativeDriver)
             }
         }
 
         val desktopMain by getting {
             dependencies {
                 api(compose.preview)
-                implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightVersion")
+                implementation(compose.uiTooling)
+                implementation(libs.sqldelight.jvmDriver)
+                implementation(libs.ktor.client.java)
+                implementation(libs.ktor.client.cio)
             }
         }
         val desktopTest by getting
@@ -133,6 +104,9 @@ android {
     namespace = "com.artkorchagin.scrubler"
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDir(File(buildDir, "generated/moko/androidMain/res"))
+    sourceSets["main"].resources.srcDir("src/commonMain/resources")
+
     defaultConfig {
         minSdk = 27
     }
@@ -142,7 +116,6 @@ android {
     }
 }
 
-
 sqldelight {
     databases {
         create("Database") {
@@ -150,4 +123,9 @@ sqldelight {
         }
     }
     linkSqlite.set(true)
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.artkorchagin.scrubler.common.resources"
+    disableStaticFrameworkWarning = true
 }

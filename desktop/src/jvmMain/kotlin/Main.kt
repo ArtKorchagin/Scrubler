@@ -12,7 +12,7 @@ fun main() = application {
     Window(
         title = "Compose Ура!!!",
         onCloseRequest = ::exitApplication,
-        state = rememberWindowState(width = 300.dp, height = 300.dp)
+        state = rememberWindowState(width = 480.dp, height = 640.dp)
     ) {
         App(ScrublerSdk(DriverFactory()))
     }

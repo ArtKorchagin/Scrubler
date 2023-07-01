@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-scrubler/Pods-scrubler-resources.sh
+${PODS_ROOT}/../../common/src/commonMain/resources/drawable
+${PODS_ROOT}/../../common/src/commonMain/resources/icons
+${PODS_ROOT}/../../common/src/commonMain/resources/MR
+${PODS_ROOT}/../../common/src/commonMain/resources/strings

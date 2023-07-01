@@ -1,0 +1,4 @@
+<resources>
+    <string name="test">Task</string>
+    <string name="add_player">Добавить игрока</string>
+</resources>

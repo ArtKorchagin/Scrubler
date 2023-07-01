@@ -2,7 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.composeMultiplatform)
 }
 
 group = "com.artkorchagin.scrubler"
@@ -34,6 +34,18 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "Scrubler"
             packageVersion = "1.0.0"
+            copyright = "© 2023 Artur Korchagin. Licensed under the Apache License."
+            licenseFile.set(project.file("../LICENSE"))
+
+            macOS {
+                iconFile.set(project.file("./launcher_icons/icon.icns"))
+            }
+            windows {
+                iconFile.set(project.file("./launcher_icons/icon.ico"))
+            }
+            linux {
+                iconFile.set(project.file("./launcher_icons/icon.png"))
+            }
         }
     }
 }

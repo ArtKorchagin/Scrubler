@@ -1,19 +1,17 @@
 plugins {
-    id("org.jetbrains.compose")
-    id("com.android.application")
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.androidApplication)
+
     kotlin("android")
 }
 
 group "com.artkorchagin.scrubler"
 version "1.0-SNAPSHOT"
 
-repositories {
-    jcenter()
-}
-
 dependencies {
     implementation(project(":common"))
-    implementation("androidx.activity:activity-compose:1.7.2")
+
+    implementation(libs.androidx.activityCompose)
 }
 
 android {
@@ -26,6 +24,7 @@ android {
         versionCode = 1
         versionName = "1.0-SNAPSHOT"
     }
+    //TODO
     // compileOptions {
     //     sourceCompatibility = JavaVersion.VERSION_1_8
     //     targetCompatibility = JavaVersion.VERSION_1_8
