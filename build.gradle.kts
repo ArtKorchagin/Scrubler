@@ -8,15 +8,8 @@ plugins {
     alias(libs.plugins.kotlinSerialization) apply false
     alias(libs.plugins.mokoResources) apply false
     alias(libs.plugins.sqlDelight) apply false
-
-    // kotlin("multiplatform") apply false
-    // kotlin("android") apply false
-
-    //id("com.android.application") apply false
-    // id("com.android.library") apply false
-
-   // id("org.jetbrains.compose") apply false
-    //id("app.cash.sqldelight") apply false
+    alias(libs.plugins.parcelizeDarwin) apply false
+    alias(libs.plugins.kotlinParcelize) apply false
 }
 
 group "com.artkorchagin.scrubler"
