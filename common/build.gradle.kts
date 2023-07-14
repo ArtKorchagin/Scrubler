@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.mokoResources)
+    alias(libs.plugins.parcelizeDarwin)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 group = "com.artkorchagin.scrubler"
@@ -42,6 +44,14 @@ kotlin {
             baseName = "common"
             isStatic = true
             linkerOpts("-lsqlite3")
+
+            export(libs.arkivanov.decompose)
+            export(libs.arkivanov.essenty.lifecycle)
+            export(libs.arkivanov.mvi.kotlin)
+
+            //TODO: export(libs.arkivanov.essenty.parcelable)
+            //TODO: export("com.arkivanov.essenty:state-keeper:<essenty_version>")
+            //TODO: export("com.arkivanov.parcelize.darwin:runtime:<parcelize_darwin_version>")
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
@@ -62,6 +72,14 @@ kotlin {
                 api(libs.moko.resources)
                 api(libs.moko.resources.compose)
 
+                api(libs.arkivanov.mvi.kotlin)
+                api(libs.arkivanov.mvi.kotlinMain)
+                api(libs.arkivanov.mvi.kotlinExtensionsCoroutines)
+                api(libs.arkivanov.decompose)
+                api(libs.arkivanov.decompose.extensionsCompose)
+
+                implementation(libs.arkivanov.essenty.lifecycle)
+                implementation(libs.arkivanov.essenty.parcelable)
                 implementation(libs.kamel)
                 implementation(libs.kotlin.coroutinesCore)
                 implementation(libs.ktor.client.core)
@@ -84,6 +102,11 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.darwin)
                 implementation(libs.sqldelight.nativeDriver)
+                implementation(libs.arkivanov.essenty.parcelable.darwin)
+
+                api(libs.arkivanov.essenty.lifecycle)
+                api(libs.arkivanov.decompose)
+                api(libs.arkivanov.mvi.kotlin)
             }
         }
 
