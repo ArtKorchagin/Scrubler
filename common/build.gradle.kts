@@ -47,11 +47,15 @@ kotlin {
 
             export(libs.arkivanov.decompose)
             export(libs.arkivanov.essenty.lifecycle)
+            export(libs.arkivanov.essenty.parcelable.darwin)
+            export("com.arkivanov.essenty:parcelable:1.1.0")
             export(libs.arkivanov.mvi.kotlin)
+
+            // export("com.arkivanov.parcelize.darwin:runtime:<parcelize_darwin_version>")
 
             //TODO: export(libs.arkivanov.essenty.parcelable)
             //TODO: export("com.arkivanov.essenty:state-keeper:<essenty_version>")
-            //TODO: export("com.arkivanov.parcelize.darwin:runtime:<parcelize_darwin_version>")
+            //TODO:
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
@@ -104,6 +108,8 @@ kotlin {
                 implementation(libs.sqldelight.nativeDriver)
                 implementation(libs.arkivanov.essenty.parcelable.darwin)
 
+                // api(libs.arkivanov.essenty.parcelable.darwin) //????
+                //
                 api(libs.arkivanov.essenty.lifecycle)
                 api(libs.arkivanov.decompose)
                 api(libs.arkivanov.mvi.kotlin)

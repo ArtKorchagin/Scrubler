@@ -100,13 +100,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/drawable"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/icons"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/MR"
-  install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/strings"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/drawable"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/icons"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/MR"
-  install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/strings"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

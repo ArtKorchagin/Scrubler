@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import com.artkorchagin.scrubler.common.resources.Icons
 import com.artkorchagin.scrubler.common.resources.MR
 import dev.icerock.moko.resources.compose.colorResource
@@ -99,7 +100,9 @@ fun App(scrublerSdk: ScrublerSdk) {
             // )
 
             KamelImage(
-                asyncPainterResource("https://f.vividscreen.info/soft/5986a1e3116efd1189e533300fb15f9a/British-Shorthair-Cat-768x1280.jpg"),
+                modifier = Modifier.height(220.dp).fillMaxWidth(),
+                contentScale = ContentScale.Crop,
+                resource = asyncPainterResource("https://f.vividscreen.info/soft/5986a1e3116efd1189e533300fb15f9a/British-Shorthair-Cat-768x1280.jpg"),
                 contentDescription = "Translated description of what the image contains",
                 onLoading = { progress -> CircularProgressIndicator(progress) },
                 onFailure = { exception ->
@@ -113,10 +116,7 @@ fun App(scrublerSdk: ScrublerSdk) {
 
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        color = colorResource(MR.colors.themedReferenceColor)
-                    ),
+                    .fillMaxWidth(),
                 text = "Список Всех Игроков:"
             )
 

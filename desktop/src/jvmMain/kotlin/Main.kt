@@ -1,19 +1,43 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.artkorchagin.scrubler.common.App
-import com.artkorchagin.scrubler.common.DriverFactory
-import com.artkorchagin.scrubler.common.ScrublerSdk
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.artkorchagin.scrubler.common.components.DefaultRootComponent
+import com.artkorchagin.scrubler.common.components.RootContent
 
 
-fun main() = application {
-    Window(
-        title = "Compose Ура!!!",
-        onCloseRequest = ::exitApplication,
-        state = rememberWindowState(width = 480.dp, height = 640.dp)
-    ) {
-        App(ScrublerSdk(DriverFactory()))
+fun main() {
+    val lifecycle = LifecycleRegistry()
+    val root = runOnUiThread {
+        DefaultRootComponent(
+            componentContext = DefaultComponentContext(lifecycle = lifecycle)
+        )
+    }
+
+    application {
+        val windowState = rememberWindowState(width = 480.dp, height = 640.dp)
+        LifecycleController(lifecycle, windowState)
+
+        Window(
+            title = "Compose Ура!!!",
+            onCloseRequest = ::exitApplication,
+            state = windowState
+        ) {
+            MaterialTheme {
+                Surface {
+                    RootContent(component = root, modifier = Modifier.fillMaxSize())
+                }
+            }
+            // TODO App(ScrublerSdk(DriverFactory()))
+        }
     }
 }
