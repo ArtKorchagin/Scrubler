@@ -6,21 +6,16 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import com.arkivanov.essenty.statekeeper.StateKeeper
 import com.arkivanov.essenty.statekeeper.consume
 import com.arkivanov.mvikotlin.core.store.Reducer
-import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
-import com.arkivanov.mvikotlin.core.view.MviView
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineBootstrapper
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.artkorchagin.scrubler.common.mvi.store.TestStore.Intent
 import com.artkorchagin.scrubler.common.mvi.store.TestStore.Label
 import com.artkorchagin.scrubler.common.mvi.store.TestStore.State
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.coroutineContext
 
 internal interface TestStore : Store<Intent, State, Label> {
 

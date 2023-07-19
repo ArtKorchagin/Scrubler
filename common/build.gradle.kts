@@ -1,9 +1,8 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-
-    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.mokoResources)
     alias(libs.plugins.parcelizeDarwin)
@@ -32,6 +31,8 @@ kotlin {
         }
     }
 
+    js(IR) { browser() }
+
     ios()
 
     cocoapods {
@@ -48,19 +49,15 @@ kotlin {
             export(libs.arkivanov.decompose)
             export(libs.arkivanov.essenty.lifecycle)
             export(libs.arkivanov.essenty.parcelable.darwin)
-            export("com.arkivanov.essenty:parcelable:1.1.0")
+            export(libs.arkivanov.essenty.parcelable)
             export(libs.arkivanov.mvi.kotlin)
-
-            // export("com.arkivanov.parcelize.darwin:runtime:<parcelize_darwin_version>")
-
-            //TODO: export(libs.arkivanov.essenty.parcelable)
-            //TODO: export("com.arkivanov.essenty:state-keeper:<essenty_version>")
-            //TODO:
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     sourceSets {
+
+
         val commonMain by getting {
             dependencies {
                 api(compose.runtime)
@@ -68,20 +65,16 @@ kotlin {
                 api(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-
                 api(compose.material3)
                 api(compose.materialIconsExtended)
                 api(compose.ui)
-
                 api(libs.moko.resources)
                 api(libs.moko.resources.compose)
-
                 api(libs.arkivanov.mvi.kotlin)
                 api(libs.arkivanov.mvi.kotlinMain)
                 api(libs.arkivanov.mvi.kotlinExtensionsCoroutines)
                 api(libs.arkivanov.decompose)
                 api(libs.arkivanov.decompose.extensionsCompose)
-
                 implementation(libs.arkivanov.essenty.lifecycle)
                 implementation(libs.arkivanov.essenty.parcelable)
                 implementation(libs.kamel)
@@ -104,15 +97,12 @@ kotlin {
 
         val iosMain by getting {
             dependencies {
-                implementation(libs.ktor.client.darwin)
-                implementation(libs.sqldelight.nativeDriver)
-                implementation(libs.arkivanov.essenty.parcelable.darwin)
-
-                // api(libs.arkivanov.essenty.parcelable.darwin) //????
-                //
                 api(libs.arkivanov.essenty.lifecycle)
                 api(libs.arkivanov.decompose)
                 api(libs.arkivanov.mvi.kotlin)
+                implementation(libs.ktor.client.darwin)
+                implementation(libs.sqldelight.nativeDriver)
+                implementation(libs.arkivanov.essenty.parcelable.darwin)
             }
         }
 
@@ -125,6 +115,17 @@ kotlin {
                 implementation(libs.ktor.client.cio)
             }
         }
+
+        val jsMain by getting {
+            dependencies {
+                implementation(compose.html.core)
+                // TODO: implementation(libs.sqldelight.webWorkerDriver) Add after update sqlDelight
+                implementation(libs.ktor.client.js)
+                implementation(libs.ktor.client.json)
+                implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+            }
+        }
+
         val desktopTest by getting
     }
 }
@@ -149,6 +150,7 @@ sqldelight {
     databases {
         create("Database") {
             packageName.set("com.artkorchagin.scrubler")
+            //TODO: generateAsync.set(true) After add coroutines into database requests
         }
     }
     linkSqlite.set(true)
@@ -158,3 +160,8 @@ multiplatformResources {
     multiplatformResourcesPackage = "com.artkorchagin.scrubler.common.resources"
     disableStaticFrameworkWarning = true
 }
+
+// TODO:
+// compose {
+//     kotlinCompilerPlugin.set("1.4.8")
+// }

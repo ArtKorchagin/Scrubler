@@ -1,10 +1,6 @@
 package com.artkorchagin.scrubler.common
 
 import com.artkorchagin.scrubler.common.model.Player
-import com.artkorchagin.scrubler.sqldelight.hockey.data.HockeyPlayer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.withContext
 
 class ScrublerSdk(
     driverFactory: DriverFactory

@@ -26,7 +26,7 @@ internal class ScrublerDatabase(
         println("Add Player: [$number] $name")
 
         playerQueries.transaction {
-            playerQueries.insertFullPlayerObject(HockeyPlayer(number, name));
+            playerQueries.insertFullPlayerObject(HockeyPlayer(number, name))
         }
     }
 

@@ -1,8 +1,7 @@
 plugins {
+    kotlin("android")
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.androidApplication)
-
-    kotlin("android")
 }
 
 group "com.artkorchagin.scrubler"
@@ -10,7 +9,6 @@ version "1.0-SNAPSHOT"
 
 dependencies {
     implementation(project(":common"))
-
     implementation(libs.androidx.activityCompose)
 }
 
