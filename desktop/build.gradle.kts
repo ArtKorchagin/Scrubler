@@ -21,6 +21,7 @@ kotlin {
             dependencies {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
+                implementation(libs.koin.core)
             }
         }
         val jvmTest by getting
@@ -46,6 +47,10 @@ compose.desktop {
             linux {
                 iconFile.set(project.file("./launcher_icons/icon.png"))
             }
+        }
+        buildTypes.release.proguard {
+            configurationFiles.from(project.file("compose-desktop.pro"))
+            // obfuscate.set(false)
         }
     }
 }

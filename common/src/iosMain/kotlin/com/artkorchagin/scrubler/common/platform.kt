@@ -1,5 +1,5 @@
-package com.artkorchagin.scrubler.common
-
-actual fun getPlatformName(): String {
-    return "iOS"
-}
+// package com.artkorchagin.scrubler.common
+//
+// actual fun getPlatformName(): String {
+//     return "iOS"
+// }

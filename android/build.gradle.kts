@@ -10,6 +10,8 @@ version "1.0-SNAPSHOT"
 dependencies {
     implementation(project(":common"))
     implementation(libs.androidx.activityCompose)
+
+    api(libs.koin.android)
 }
 
 android {

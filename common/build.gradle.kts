@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -7,6 +9,7 @@ plugins {
     alias(libs.plugins.mokoResources)
     alias(libs.plugins.parcelizeDarwin)
     alias(libs.plugins.kotlinParcelize)
+    alias(libs.plugins.gmazzo.buildconfig)
 }
 
 group = "com.artkorchagin.scrubler"
@@ -57,7 +60,6 @@ kotlin {
 
     sourceSets {
 
-
         val commonMain by getting {
             dependencies {
                 api(compose.runtime)
@@ -75,6 +77,8 @@ kotlin {
                 api(libs.arkivanov.mvi.kotlinExtensionsCoroutines)
                 api(libs.arkivanov.decompose)
                 api(libs.arkivanov.decompose.extensionsCompose)
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
                 implementation(libs.arkivanov.essenty.lifecycle)
                 implementation(libs.arkivanov.essenty.parcelable)
                 implementation(libs.kamel)
@@ -89,6 +93,8 @@ kotlin {
             dependencies {
                 api(libs.androidx.appcompat)
                 api(libs.androidx.coreKtx)
+                implementation(libs.kotlin.coroutinesAndroid)
+                implementation(libs.koin.android)
                 implementation(compose.uiTooling)
                 implementation(libs.ktor.client.android)
                 implementation(libs.sqldelight.androidDriver)
@@ -100,6 +106,10 @@ kotlin {
                 api(libs.arkivanov.essenty.lifecycle)
                 api(libs.arkivanov.decompose)
                 api(libs.arkivanov.mvi.kotlin)
+                api(compose.material3)
+                api(compose.material)
+                // implementation(compose.uiTooling)
+                implementation(libs.koin.core)
                 implementation(libs.ktor.client.darwin)
                 implementation(libs.sqldelight.nativeDriver)
                 implementation(libs.arkivanov.essenty.parcelable.darwin)
@@ -109,7 +119,11 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 api(compose.preview)
+                api(compose.material3)
+                implementation(compose.desktop.currentOs)
                 implementation(compose.uiTooling)
+                implementation(libs.koin.core)
+                implementation(libs.kotlin.coroutinesSwing)
                 implementation(libs.sqldelight.jvmDriver)
                 implementation(libs.ktor.client.java)
                 implementation(libs.ktor.client.cio)
@@ -119,6 +133,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(compose.html.core)
+                api(compose.material3)
                 // TODO: implementation(libs.sqldelight.webWorkerDriver) Add after update sqlDelight
                 implementation(libs.ktor.client.js)
                 implementation(libs.ktor.client.json)
@@ -159,6 +174,13 @@ sqldelight {
 multiplatformResources {
     multiplatformResourcesPackage = "com.artkorchagin.scrubler.common.resources"
     disableStaticFrameworkWarning = true
+}
+
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
+
+buildConfig {
+    buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
 }
 
 // TODO:

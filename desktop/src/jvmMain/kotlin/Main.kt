@@ -1,40 +1,42 @@
-// Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.artkorchagin.scrubler.common.components.DefaultRootComponent
-import com.artkorchagin.scrubler.common.components.RootContent
+import com.artkorchagin.scrubler.common.di.initKoin
+import com.artkorchagin.scrubler.common.presentation.ui.root.component.DefaultRootComponent
+import com.artkorchagin.scrubler.common.presentation.ui.root.component.RootContent
 
+@OptIn(ExperimentalDecomposeApi::class)
 fun main() {
-    val lifecycle = LifecycleRegistry()
+
+    val lifecycle = LifecycleRegistry() // TODO: Move to DI
+
     val root = runOnUiThread {
-        DefaultRootComponent(
-            componentContext = DefaultComponentContext(lifecycle = lifecycle)
-        )
+        initKoin()
+        DefaultRootComponent(componentContext = DefaultComponentContext(lifecycle = lifecycle))
     }
 
     application {
         val windowState = rememberWindowState(width = 480.dp, height = 640.dp)
+
         LifecycleController(lifecycle, windowState)
 
         Window(
-            title = "Compose Ура!!!",
+            title = "Compose Ура!!! ${windowState.size.width.value}",
             onCloseRequest = ::exitApplication,
             state = windowState
         ) {
-            MaterialTheme {
-                Surface {
-                    RootContent(component = root, modifier = Modifier.fillMaxSize())
-                }
-            }
+            // MaterialTheme {
+            //     Surface {
+            RootContent(component = root, modifier = Modifier.fillMaxSize())
+            // }
+            // }
             // TODO App(ScrublerSdk(DriverFactory()))
         }
     }

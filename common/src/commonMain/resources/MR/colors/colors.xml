@@ -2,13 +2,112 @@
 <resources>
     <!-- format: #RRGGBB[AA] or 0xRRGGBB[AA] or RRGGBB[AA] where [AA] - optional -->
     <color name="valueColor">#B02743FF</color>
-    <color name="referenceColor">@color/valueColor</color>
-    <color name="themedColor">
-        <light>0xB92743FF</light>
-        <dark>7CCFEEFF</dark>
+
+    <color name="black">#0F0f0b</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="green300">0xFF2EB688</color>
+    <color name="green400">0xFF145526</color>
+    <color name="green500">0xFF046D4A</color>
+
+    <color name="red300">0xFFF33736</color>
+    <color name="red400">0xFFcb290b</color>
+    <color name="red500">0xFF9C2221</color>
+
+    <color name="blue300">0xFF54B1DF</color>
+    <color name="blue400">0xFF4572E8</color>
+    <color name="blue500">0xFF1E3DA8</color>
+
+    <color name="yellow300">0xFFF1A22C</color>
+    <color name="yellow400">0xFFfaae41</color>
+    <color name="yellow500">0xFFCB5C0D</color>
+
+    <color name="lightGray400">0xb8b6b3</color>
+    <color name="darkGray400">0x3e4047</color>
+    <color name="gray400">0xFF595C61</color>
+
+    <color name="Bug">0xFF179A55</color>
+    <color name="Dark">0xFF040706</color>
+    <color name="Dragon">0xFF378A94</color>
+    <color name="Electric">0xFFE0E64B</color>
+    <color name="Fairy">0xFF9E1A44</color>
+    <color name="Fire">0xFFB22328</color>
+    <color name="Flying">0xFF90B1C5</color>
+    <color name="Ghost">0xFF363069</color>
+    <color name="Ice">0xFF7ECFF2</color>
+    <color name="Poison">0xFF642785</color>
+    <color name="Psychic">0xFFAC296B</color>
+    <color name="Rock">0xFF4B190E</color>
+    <color name="Steel">0xFF5C756D</color>
+    <color name="Water">0xFF2648DC</color>
+    <color name="Fighting">0xFF9F422A</color>
+    <color name="Grass">0xFF007C42</color>
+    <color name="Ground">0xFFAD7235</color>
+
+    <color name="primary">
+        <light>@color/green300</light>
+        <dark>@color/green300</dark>
     </color>
-    <color name="themedReferenceColor">
-        <light>@color/valueColor</light>
-        <dark>@color/referenceColor</dark>
+
+    <color name="secondary">
+        <light>@color/green400</light>
+        <dark>@color/green400</dark>
     </color>
+
+    <color name="tertiary">
+        <light>@color/blue400</light>
+        <dark>@color/blue400</dark>
+    </color>
+
+    <color name="background">
+        <light>@color/white</light>
+        <dark>@color/black</dark>
+    </color>
+
+    <color name="surface">
+        <light>@color/lightGray400</light>
+        <dark>@color/darkGray400</dark>
+    </color>
+
+    <color name="surfaceVariant">
+        <light>@color/gray400</light>
+        <dark>@color/gray400</dark>
+    </color>
+
+    <color name="onPrimary">
+        <light>@color/white</light>
+        <dark>@color/white</dark>
+    </color>
+
+    <color name="onSecondary">
+        <light>@color/white</light>
+        <dark>@color/white</dark>
+    </color>
+
+    <color name="onBackground">
+        <light>@color/black</light>
+        <dark>@color/white</dark>
+    </color>
+
+    <color name="onSurface">
+        <light>@color/black</light>
+        <dark>@color/white</dark>
+    </color>
+
+    <color name="onSurfaceVariant">
+        <light>@color/darkGray400</light>
+        <dark>@color/lightGray400</dark>
+    </color>
+
+    <color name="outline">
+        <light>@color/lightGray400</light>
+        <dark>@color/lightGray400</dark>
+    </color>
+
 </resources>
+
+
+
+
+
+

@@ -3,16 +3,22 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
-import com.artkorchagin.scrubler.common.components.DefaultRootComponent
-import com.artkorchagin.scrubler.common.components.RootContent
+import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
+import com.artkorchagin.scrubler.common.di.initKoin
+import com.artkorchagin.scrubler.common.presentation.ui.root.component.DefaultRootComponent
+import com.artkorchagin.scrubler.common.presentation.ui.root.component.RootContent
 import kotlinx.browser.document
 import org.jetbrains.skiko.wasm.onWasmReady
 import org.w3c.dom.Document
 
 fun main() {
+    initKoin()
+
     val lifecycle = LifecycleRegistry()
     val rootComponent = DefaultRootComponent(
         componentContext = DefaultComponentContext(lifecycle = lifecycle)
+        // ,
+        // storeFactory = DefaultStoreFactory(),
     )
     lifecycle.attachToDocument()
 

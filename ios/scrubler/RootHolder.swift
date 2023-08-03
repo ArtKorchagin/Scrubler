@@ -15,9 +15,11 @@ class RootHolder : ObservableObject {
     let lifecycle: LifecycleRegistry
 
     init() {
+        Main_iosKt.InitKoinDi()
         lifecycle = LifecycleRegistryKt.LifecycleRegistry()
         root = DefaultRootComponent(
             componentContext: DefaultComponentContext(lifecycle: lifecycle)
+            // ,storeFactory: Main_iosKt.buildStoreFactory()
         )
         LifecycleRegistryExtKt.create(lifecycle)
     }

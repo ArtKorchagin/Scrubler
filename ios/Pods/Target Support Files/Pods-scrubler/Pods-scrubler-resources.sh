@@ -97,11 +97,13 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/koin.properties"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/drawable"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/icons"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/MR"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/koin.properties"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/drawable"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/icons"
   install_resource "${PODS_ROOT}/../../common/src/commonMain/resources/MR"

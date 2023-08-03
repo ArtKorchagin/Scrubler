@@ -1,15 +1,16 @@
 package com.artkorchagin.scrubler.common
 
 import androidx.compose.ui.window.ComposeUIViewController
-import com.arkivanov.decompose.DefaultComponentContext
-import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.artkorchagin.scrubler.common.components.DefaultRootComponent
-import com.artkorchagin.scrubler.common.components.RootComponent
-import com.artkorchagin.scrubler.common.components.RootContent
+import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
+import com.artkorchagin.scrubler.common.di.initKoin
+import com.artkorchagin.scrubler.common.presentation.ui.root.component.RootComponent
+import com.artkorchagin.scrubler.common.presentation.ui.root.component.RootContent
 import platform.UIKit.UIViewController
 
 //fun MainViewController() = ComposeUIViewController { App(ScrublerSdk(DriverFactory())) }
 
+
+fun InitKoinDi() = initKoin() //TODO: Remove in future
 fun MainViewController(rootComponent: RootComponent): UIViewController {
     // initKoin()
     return ComposeUIViewController {
@@ -19,3 +20,6 @@ fun MainViewController(rootComponent: RootComponent): UIViewController {
         // }
     }
 }
+
+
+fun buildStoreFactory() = DefaultStoreFactory()

@@ -1,6 +1,7 @@
 [versions]
 kotlin = "1.8.20"
 androidGradlePlugin = "8.0.2"
+buildconfig = "3.1.0"
 compose = "1.4.1-rc01"
 activity = "1.7.2"
 sqlDelight = "2.0.0-alpha05"
@@ -16,6 +17,8 @@ decompose = "2.0.0-compose-experimental"
 essenty = "1.1.0"
 kamelImage = "0.6.0"
 parcelizeDarwin = "0.1.4"
+koin = "3.4.3"
+koinCompose = "1.0.4"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -26,6 +29,8 @@ androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidCo
 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlin-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+kotlin-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinCoroutines" }
+kotlin-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinCoroutines" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinDatetime" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
@@ -42,6 +47,16 @@ ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-serialization-gson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-core-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
+
+#koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+#koin-android
+#koin-android-compat
 
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
@@ -80,3 +95,4 @@ mokoResources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 parcelizeDarwin = { id = "com.arkivanov.parcelize.darwin", version.ref = "parcelizeDarwin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+gmazzo-buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
