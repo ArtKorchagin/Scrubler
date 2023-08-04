@@ -9,8 +9,8 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.artkorchagin.scrubler.common.di.initKoin
+import com.artkorchagin.scrubler.common.presentation.ui.root.RootScreen
 import com.artkorchagin.scrubler.common.presentation.ui.root.component.DefaultRootComponent
-import com.artkorchagin.scrubler.common.presentation.ui.root.component.RootContent
 
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
@@ -34,7 +34,7 @@ fun main() {
         ) {
             // MaterialTheme {
             //     Surface {
-            RootContent(component = root, modifier = Modifier.fillMaxSize())
+            RootScreen(component = root, modifier = Modifier.fillMaxSize())
             // }
             // }
             // TODO App(ScrublerSdk(DriverFactory()))

@@ -1,4 +1,12 @@
 <resources>
     <string name="test">Task</string>
     <string name="add_player">Добавить игрока</string>
+
+    <string name="words">Слова</string>
+    <string name="movies">Фильмы</string>
+    <string name="music">Музыка</string>
+    <string name="youtube">Youtube</string>
+    <string name="settings">Настройки</string>
+
+
 </resources>

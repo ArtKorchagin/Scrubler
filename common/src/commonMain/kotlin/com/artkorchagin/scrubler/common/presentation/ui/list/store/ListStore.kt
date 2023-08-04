@@ -6,68 +6,64 @@ import com.arkivanov.mvikotlin.core.utils.ExperimentalMviKotlinApi
 import com.arkivanov.mvikotlin.extensions.coroutines.coroutineBootstrapper
 import com.arkivanov.mvikotlin.extensions.coroutines.coroutineExecutorFactory
 import com.artkorchagin.scrubler.common.data.repository.WordsRepository
+import com.artkorchagin.scrubler.common.presentation.ui.list.component.ListComponent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-// interface ListStore : Store<ListStore.Intent, ListStore.State, Nothing> {
-
-
-sealed class Intent {
-    data class SaveItem(val item: String) : Intent()
-}
-
-data class State(
-    val isLoading: Boolean = false,
-    val error: String? = null,
-    val listInfo: List<String>? = null
-)
-// }
-
-private sealed interface Action {
-    object Initialize : Action
-}
-
-private sealed interface Msg {
-    data class Loading(val isLoading: Boolean) : Msg
-    data class Error(val error: String?) : Msg
-    data class Value(val items: List<String>) : Msg
-}
-
-internal sealed interface Label {
-    // ...
-}
-
 @OptIn(ExperimentalMviKotlinApi::class)
-internal class ListStore(
+class ListStore(
     storeFactory: StoreFactory,
-    repository: WordsRepository
-) : Store<Intent, State, Label> by storeFactory.create<Intent, Action, Msg, State, Label>(
+    repository: WordsRepository,
+    input: Flow<ListComponent.Input>
+) : Store<ListStore.Intent, ListStore.State, ListStore.Label> by storeFactory.create<Intent, Action, Msg, State, Label>(
 
     name = "ListStore",
     initialState = State(),
     bootstrapper = coroutineBootstrapper {
+
         launch {
+
+            input.onEach {
+                when (it) {
+                    is ListComponent.Input.ItemDeleted -> dispatch(Action.ItemDeleted(it.item))
+                }
+            }.launchIn(this)
+
+
             // Launch a coroutine
             // val sum = withContext(Dispatchers.Default) { (1L..1000000.toLong()).sum() }
             // TODO:
-            dispatch(Action.Initialize) // Dispatch an Action
+
+            dispatch(Action.LoadData) // Dispatch an Action
         }
     },
 
+    // USE LABEL
     executorFactory = coroutineExecutorFactory {
 
-        onAction<Action.Initialize> {
+
+        onAction<Action.ItemDeleted> {
+            //TODO: publish()
+
             dispatch(Msg.Loading(true))
             launch {
-                val items = withContext(Dispatchers.Default) { //TODO: IO
-                    delay(3_000)
-                    List(100) { "Item $it ${repository.getTestString()}" }
-                }
+                repository.removeItem(it.item)
+                dispatch(Msg.Value(repository.getItems()))
                 dispatch(Msg.Loading(false))
-                dispatch(Msg.Value(items))
+            }
+        }
+
+        onAction<Action.LoadData> {
+            dispatch(Msg.Loading(true))
+            launch {
+                dispatch(Msg.Value(repository.getItems()))
+                dispatch(Msg.Loading(false))
             }
         }
 
@@ -90,4 +86,35 @@ internal class ListStore(
         }
     }
 
-)
+) {
+    init {
+        println("xxx-> Create ListStore ")
+    }
+
+    sealed class Intent {
+        data class SaveItem(val item: String) : Intent()
+    }
+
+    data class State(
+        val isLoading: Boolean = false,
+        val error: String? = null,
+        val listInfo: List<String>? = null
+    )
+    // }
+
+    private sealed interface Action {
+        data class ItemDeleted(val item: String) : Action
+
+        object LoadData : Action
+    }
+
+    private sealed interface Msg {
+        data class Loading(val isLoading: Boolean) : Msg
+        data class Error(val error: String?) : Msg
+        data class Value(val items: List<String>) : Msg
+    }
+
+    sealed interface Label {
+        // ...
+    }
+}

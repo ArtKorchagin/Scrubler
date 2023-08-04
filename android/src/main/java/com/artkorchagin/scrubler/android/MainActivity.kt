@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
+import com.artkorchagin.scrubler.common.presentation.ui.root.RootScreen
 import com.artkorchagin.scrubler.common.presentation.ui.root.component.DefaultRootComponent
-import com.artkorchagin.scrubler.common.presentation.ui.root.component.RootContent
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             // MaterialTheme {
             //     Surface {
-            RootContent(component = root, modifier = Modifier.fillMaxSize())
+            RootScreen(component = root, modifier = Modifier.fillMaxSize())
             // }
 
             // App(ScrublerSdk(DriverFactory(this)))

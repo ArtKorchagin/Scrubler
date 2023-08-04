@@ -3,10 +3,9 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
-import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.artkorchagin.scrubler.common.di.initKoin
+import com.artkorchagin.scrubler.common.presentation.ui.root.RootScreen
 import com.artkorchagin.scrubler.common.presentation.ui.root.component.DefaultRootComponent
-import com.artkorchagin.scrubler.common.presentation.ui.root.component.RootContent
 import kotlinx.browser.document
 import org.jetbrains.skiko.wasm.onWasmReady
 import org.w3c.dom.Document
@@ -24,7 +23,7 @@ fun main() {
 
     onWasmReady {
         Window("Scrubler") {
-            RootContent(rootComponent)
+            RootScreen(rootComponent)
         }
     }
 }

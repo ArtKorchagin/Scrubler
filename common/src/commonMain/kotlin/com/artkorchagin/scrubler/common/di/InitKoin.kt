@@ -7,8 +7,10 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) {
     startKoin {
         appDeclaration()
         modules(
+            coroutinesModule,
             repositoryModule,
-            storeModule
+            storeModule,
+            routerModule
         )
     }
 }
