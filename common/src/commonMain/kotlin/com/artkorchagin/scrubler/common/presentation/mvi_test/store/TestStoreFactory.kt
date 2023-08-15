@@ -1,4 +1,4 @@
-package com.artkorchagin.scrubler.common.presentation.mvi.store
+package com.artkorchagin.scrubler.common.presentation.mvi_test.store
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.parcelable.Parcelable
@@ -10,9 +10,9 @@ import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineBootstrapper
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import com.artkorchagin.scrubler.common.presentation.mvi.store.TestStore.Intent
-import com.artkorchagin.scrubler.common.presentation.mvi.store.TestStore.Label
-import com.artkorchagin.scrubler.common.presentation.mvi.store.TestStore.State
+import com.artkorchagin.scrubler.common.presentation.mvi_test.store.TestStore.Intent
+import com.artkorchagin.scrubler.common.presentation.mvi_test.store.TestStore.Label
+import com.artkorchagin.scrubler.common.presentation.mvi_test.store.TestStore.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
