@@ -17,6 +17,7 @@ interface ListComponent {
     val state: StateFlow<ListStore.State>
 
     val label: Flow<ListStore.Label>
+
     fun onEvent(intent: ListStore.Intent)
 
     fun onOutput(output: Output)

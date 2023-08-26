@@ -6,17 +6,17 @@
     <color name="black">#0F0f0b</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="green300">0xFF2EB688</color>
-    <color name="green400">0xFF145526</color>
-    <color name="green500">0xFF046D4A</color>
+    <color name="green300">0x2EB688</color>
+    <color name="green400">0x145526</color>
+    <color name="green500">0x046D4A</color>
 
-    <color name="red300">0xFFF33736</color>
-    <color name="red400">0xFFcb290b</color>
-    <color name="red500">0xFF9C2221</color>
+    <color name="red300">0xF33736</color>
+    <color name="red400">0xcb290b</color>
+    <color name="red500">0x9C2221</color>
 
-    <color name="blue300">0xFF54B1DF</color>
-    <color name="blue400">0xFF4572E8</color>
-    <color name="blue500">0xFF1E3DA8</color>
+    <color name="blue300">0x54B1DF</color>
+    <color name="blue400">0x4572E8</color>
+    <color name="blue500">0x1E3DA8</color>
 
     <color name="yellow300">0xFFF1A22C</color>
     <color name="yellow400">0xFFfaae41</color>

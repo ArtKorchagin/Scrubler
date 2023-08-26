@@ -9,12 +9,15 @@ import com.artkorchagin.scrubler.common.presentation.ui.details.component.Detail
 import com.artkorchagin.scrubler.common.presentation.ui.list.component.DefaultListComponent
 import com.artkorchagin.scrubler.common.presentation.ui.list.component.ListComponent
 import com.artkorchagin.scrubler.common.presentation.ui.main.component.MainComponent
+import com.artkorchagin.scrubler.common.presentation.ui.movies.list.component.DefaultMoviesListComponent
+import com.artkorchagin.scrubler.common.presentation.ui.movies.list.component.MoviesListComponent
+import com.artkorchagin.scrubler.common.presentation.ui.movies.search.component.DefaultMoviesSearchComponent
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 class MainComponentRouter(componentContext: ComponentContext) : ComponentRouter<MainConfig, MainComponent.Child>(
     componentContext,
     MainConfig::class,
-    MainConfig.List
+    MainConfig.MoviesList //TODO
 ) {
 
     companion object {
@@ -25,12 +28,20 @@ class MainComponentRouter(componentContext: ComponentContext) : ComponentRouter<
 
     override fun createChild(config: MainConfig, componentContext: ComponentContext): MainComponent.Child =
         when (config) {
-            MainConfig.List -> MainComponent.Child.ListChild(
+            MainConfig.List -> MainComponent.Child.List(
                 DefaultListComponent(componentContext, listInput, ::onListOutput)
             )
 
-            is MainConfig.Details -> MainComponent.Child.DetailsChild(
+            is MainConfig.Details -> MainComponent.Child.Details(
                 DefaultDetailsComponent(componentContext, config.item, ::onDetailsOutput)
+            )
+
+            is MainConfig.MoviesSearch -> MainComponent.Child.MoviesSearch(
+                DefaultMoviesSearchComponent(componentContext)
+            )
+
+            is MainConfig.MoviesList -> MainComponent.Child.MoviesList(
+                DefaultMoviesListComponent(componentContext, ::onMoviesListOutput)
             )
         }
 
@@ -43,6 +54,10 @@ class MainComponentRouter(componentContext: ComponentContext) : ComponentRouter<
                 listInput.tryEmit(ListComponent.Input.ItemDeleted(output.item))
             }
         }
+    }
+
+    private fun onMoviesListOutput(output: MoviesListComponent.Output) = when (output) {
+        MoviesListComponent.Output.SearchMovie -> navigation.push(MainConfig.MoviesSearch)
     }
 
     private fun onListOutput(output: ListComponent.Output) = when (output) {

@@ -1,4 +1,3 @@
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,7 +28,7 @@ fun main() {
         LifecycleController(lifecycle, windowState)
 
         Window(
-            title = "Compose Ура!!! ${windowState.size.width.value}",
+            title = "Scrubler ${windowState.size.width.value}",
             onCloseRequest = ::exitApplication,
             state = windowState
         ) {

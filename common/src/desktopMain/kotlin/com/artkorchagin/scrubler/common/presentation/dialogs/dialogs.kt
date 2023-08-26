@@ -1,8 +1,11 @@
 package com.artkorchagin.scrubler.common.presentation.dialogs
 
+import androidx.compose.foundation.onClick
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.OutlinedButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -13,6 +16,8 @@ actual fun PlatformDialog(
     onDismiss: (() -> Unit)?,
     dismissButton: @Composable (() -> Unit)?
 ) {
+
+
     AlertDialog(
         onDismissRequest = {
             // Dismiss the dialog when the user clicks outside the dialog or on the back

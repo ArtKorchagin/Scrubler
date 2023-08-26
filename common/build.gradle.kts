@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    kotlin("plugin.serialization")
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
@@ -70,6 +71,7 @@ kotlin {
                 api(compose.material3)
                 api(compose.materialIconsExtended)
                 api(compose.ui)
+                //implementation(Deps.Org.JetBrains.Kotlinx.kotlinxSerializationJson)
                 api(libs.moko.resources)
                 api(libs.moko.resources.compose)
                 api(libs.arkivanov.mvi.kotlin)
@@ -85,6 +87,7 @@ kotlin {
                 implementation(libs.kotlin.coroutinesCore)
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.contentNegotiation)
+                implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.kotlin.datetime)
             }
@@ -180,7 +183,7 @@ val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 
 buildConfig {
-    buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
+    buildConfigField("String", "OPENSUBTITLES_API_KEY", "\"${properties.getProperty("OPENSUBTITLES_API_KEY")}\"")
 }
 
 // TODO:

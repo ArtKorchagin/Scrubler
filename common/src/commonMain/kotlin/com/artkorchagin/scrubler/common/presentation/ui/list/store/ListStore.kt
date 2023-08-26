@@ -5,6 +5,7 @@ import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.core.utils.ExperimentalMviKotlinApi
 import com.arkivanov.mvikotlin.extensions.coroutines.coroutineBootstrapper
 import com.arkivanov.mvikotlin.extensions.coroutines.coroutineExecutorFactory
+import com.artkorchagin.scrubler.common.data.model.OSFeature
 import com.artkorchagin.scrubler.common.data.repository.WordsRepository
 import com.artkorchagin.scrubler.common.presentation.ui.list.component.ListComponent
 import kotlinx.coroutines.Dispatchers
@@ -35,11 +36,6 @@ class ListStore(
                 }
             }.launchIn(this)
 
-
-            // Launch a coroutine
-            // val sum = withContext(Dispatchers.Default) { (1L..1000000.toLong()).sum() }
-            // TODO:
-
             dispatch(Action.LoadData) // Dispatch an Action
         }
     },
@@ -47,14 +43,11 @@ class ListStore(
     // USE LABEL
     executorFactory = coroutineExecutorFactory {
 
-
         onAction<Action.ItemDeleted> {
-            //TODO: publish()
-
             dispatch(Msg.Loading(true))
             launch {
                 repository.removeItem(it.item)
-                dispatch(Msg.Value(repository.getItems()))
+                dispatch(Msg.Value(repository.getFeatures("Crown")))
                 dispatch(Msg.Loading(false))
             }
         }
@@ -62,7 +55,7 @@ class ListStore(
         onAction<Action.LoadData> {
             dispatch(Msg.Loading(true))
             launch {
-                dispatch(Msg.Value(repository.getItems()))
+                dispatch(Msg.Value(repository.getFeatures("Crown")))
                 dispatch(Msg.Loading(false))
             }
         }
@@ -98,20 +91,18 @@ class ListStore(
     data class State(
         val isLoading: Boolean = false,
         val error: String? = null,
-        val listInfo: List<String>? = null
+        val listInfo: List<OSFeature>? = null
     )
-    // }
 
     private sealed interface Action {
         data class ItemDeleted(val item: String) : Action
-
         object LoadData : Action
     }
 
     private sealed interface Msg {
         data class Loading(val isLoading: Boolean) : Msg
         data class Error(val error: String?) : Msg
-        data class Value(val items: List<String>) : Msg
+        data class Value(val items: List<OSFeature>) : Msg
     }
 
     sealed interface Label {

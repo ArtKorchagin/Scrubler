@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
 
-    single<WordsRepository> { WordsRepositoryImpl(get()) }
+    single<WordsRepository> { WordsRepositoryImpl(get(), get()) }
 }

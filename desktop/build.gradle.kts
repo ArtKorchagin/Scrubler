@@ -21,6 +21,7 @@ kotlin {
             dependencies {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
+                // implementation(compose.desktop.macos_arm64)
                 implementation(libs.koin.core)
             }
         }
