@@ -16,14 +16,14 @@ plugins {
 group = "com.artkorchagin.scrubler"
 version = "1.0-SNAPSHOT"
 
+
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
-
+    jvmToolchain(17)
     android {
         compilations.all {
             kotlinOptions {
-                // TODO: jvmTarget = "1.8"
                 jvmTarget = "17"
             }
         }

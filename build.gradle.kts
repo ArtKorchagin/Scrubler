@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.sqlDelight) apply false
     alias(libs.plugins.parcelizeDarwin) apply false
     alias(libs.plugins.kotlinParcelize) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
 }
 
 group "com.artkorchagin.scrubler"

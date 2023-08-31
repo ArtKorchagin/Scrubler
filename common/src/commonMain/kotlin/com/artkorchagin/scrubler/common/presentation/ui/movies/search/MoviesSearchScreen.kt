@@ -43,7 +43,9 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.artkorchagin.scrubler.common.data.model.OSFeatureType
 import com.artkorchagin.scrubler.common.presentation.ui.movies.search.component.MoviesSearchComponent
 import com.artkorchagin.scrubler.common.presentation.ui.movies.search.store.MoviesSearchStore
@@ -101,9 +103,9 @@ fun SearchMoviesScreen(
                         MovieItem(
                             modifier = modifier.animateItemPlacement(),
                             title = item.attributes.title,
-                            description = "",
+                            imageUrl = item.attributes.imgUrl,
                             type = item.attributes.featureType,
-                            imageUrl = item.attributes.imgUrl
+                            year = item.attributes.year
                         )
                     }
                 )
@@ -116,9 +118,9 @@ fun SearchMoviesScreen(
 fun MovieItem(
     modifier: Modifier = Modifier,
     title: String,
-    description: String,
     imageUrl: String,
     type: OSFeatureType,
+    year: String,
     // isSaved
     // onSave
 ) {
@@ -129,19 +131,17 @@ fun MovieItem(
             .padding(8.dp)
             .clip(CardDefaults.shape)
     ) {
-// 182x268
         Column(
             Modifier.fillMaxWidth()
         ) {
             KamelImage(
                 modifier = Modifier
                     .aspectRatio(0.68f)
-                    //.height(80.dp)
                     .fillMaxWidth()
                     .clip(CardDefaults.shape),
                 contentScale = ContentScale.Crop,
                 resource = asyncPainterResource(imageUrl),
-                contentDescription = "Translated description of what the image contains",
+                contentDescription = null,
                 onLoading = { progress ->
                     // TODO: Make shimmer!
                     CircularProgressIndicator(progress)
@@ -155,24 +155,41 @@ fun MovieItem(
                 animationSpec = tween()
             )
 
-            Column (
+            Column(
                 modifier = modifier.fillMaxWidth()
             ) {
-                Text(text = title)
+                Text(
+                    text = title,
+                    maxLines = 2,
+                    //TODO: minLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
 
                 val colorBackground = when (type) {
                     OSFeatureType.Episode -> MR.colors.green300
                     OSFeatureType.Movie -> MR.colors.red300
                     OSFeatureType.Tvshow -> MR.colors.blue300
                 }
-                Text(
-                    modifier = Modifier.background(colorResource(colorBackground)),
-                    text = type.name
-                )
+
+                Row {
+                    Text(
+                        modifier = Modifier
+                            .padding(2.dp)
+                            .background(colorResource(colorBackground), shape = ShapeDefaults.Medium),
+                        text = type.name,
+                        fontSize = 12.sp
+                    )
+
+                    Text(
+                        modifier = Modifier
+                            .padding(2.dp),
+                        text = year,
+                        fontSize = 12.sp
+                    )
+                }
+
             }
         }
-
-
     }
 }
 
@@ -188,11 +205,14 @@ fun SearchBar(
 
         value = value,
         onValueChange = onValueChange,
-        // shape = MaterialTheme.shapes.small.copy(bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize),
-        colors = TextFieldDefaults.textFieldColors(
-            textColor = MaterialTheme.colorScheme.onBackground,
-            // backgroundColor = Color.White,
-            containerColor = MaterialTheme.colorScheme.background,
+        colors = TextFieldDefaults.colors(
+
+            focusedTextColor = MaterialTheme.colorScheme.onBackground, // TODO
+            unfocusedTextColor = MaterialTheme.colorScheme.onBackground, // TODO
+            //   backgroundColor = Color.White,
+            focusedContainerColor = MaterialTheme.colorScheme.background, // TODO
+            unfocusedContainerColor = MaterialTheme.colorScheme.background, // TODO
+
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent
